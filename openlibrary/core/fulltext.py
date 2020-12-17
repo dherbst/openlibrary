@@ -1,5 +1,5 @@
 
-import simplejson
+import json
 import logging
 
 import web
@@ -24,7 +24,7 @@ def fulltext_search_api(params):
         return {'error': 'Unable to query search engine'}
 
     try:
-        return simplejson.loads(json_data)
+        return json.loads(json_data)
     except:
         return {'error': 'Error converting search engine data to JSON'}
 

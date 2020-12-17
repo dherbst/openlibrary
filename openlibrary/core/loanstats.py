@@ -5,8 +5,8 @@ Unlike other parts of openlibrary, this modules talks to the database directly.
 import re
 import time
 import datetime
+import json
 import logging
-import simplejson
 import web
 from infogami import config
 from .. import i18n
@@ -71,7 +71,7 @@ class LoanStats:
         url = self.base_url + "/select?" + q
         logger.info("urlopen %s", url)
         response = urllib.request.urlopen(url).read()
-        return simplejson.loads(response)
+        return json.loads(response)
 
     def solrescape(self, text):
         return re_solrescape.sub(r'\\\1', text)
