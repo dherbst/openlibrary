@@ -5,7 +5,7 @@ import _init_path
 
 from openlibrary import config
 import argparse
-import simplejson
+import json
 from six.moves.urllib.request import urlopen
 import sys
 from time import time, sleep
@@ -77,7 +77,7 @@ while True:
         print('url:', url)
         raise
     try:
-        ret = simplejson.loads(data)
+        ret = json.loads(data)
     except:
         open('bad_data.json', 'w').write(data)
         raise

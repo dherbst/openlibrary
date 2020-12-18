@@ -40,7 +40,7 @@ import os
 import glob
 import shutil
 import urllib, urllib2
-import simplejson
+import json
 from optparse import OptionParser
 from ConfigParser import ConfigParser
 
@@ -157,7 +157,7 @@ class RemoteSource:
             q['type'] = '/type/type'
             
         paths = urllib.urlopen(self.server + '/query.json?' + urllib.urlencode(q)).read()
-        return [x['key'] for x in simplejson.loads(paths)]
+        return [x['key'] for x in json.loads(paths)]
         
     def expand(self, paths):
         for p in paths:
@@ -206,11 +206,11 @@ class RemoteSource:
     def read(self, paths):
         paths = list(self.expand(paths))
         
-        d = simplejson.dumps({'key': paths, '*': None, 'limit': 1000})
+        d = json.dumps({'key': paths, '*': None, 'limit': 1000})
         url = self.server + '/query.json?' + urllib.urlencode(dict(query=d))
         data = urllib.urlopen(url).read()
         
-        for x in simplejson.loads(data):
+        for x in json.loads(data):
             yield x['key'][1:], self.to_text(x)
             
     def get_ol(self):
